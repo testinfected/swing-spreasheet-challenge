@@ -2,3 +2,6 @@ out
 [^.]*\.iml
 [^.]*\.ipr
 [^.]*\.iws
+.project
+.classpath
+bin
