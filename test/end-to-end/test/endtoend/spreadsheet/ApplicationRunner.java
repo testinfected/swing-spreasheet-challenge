@@ -3,17 +3,23 @@ package test.endtoend.spreadsheet;
 import spreadsheet.Application;
 import spreadsheet.ui.MainWindow;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.lang.String.valueOf;
+
 public class ApplicationRunner {
 
-    private static final int LINE_COUNT = 99;
+    private static final int TOTAL_ROWS = 10;
+    private static final int TOTAL_COLUMNS = 10;
+
     private SpreadsheetDriver driver;
 
     public void start() {
         Thread thread = new Thread() {
-            @Override
             public void run() {
                 try {
-                    Application.main();
+                    Application.main(valueOf(TOTAL_ROWS), valueOf(TOTAL_COLUMNS));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -24,8 +30,8 @@ public class ApplicationRunner {
 
         driver = new SpreadsheetDriver(1000);
         driver.hasTitle(MainWindow.APPLICATION_TITLE);
-        driver.hasColumnTitles();
-        driver.hasLines(LINE_COUNT);
+        driver.hasColumnsWithTitles(lettersOfTheAlphabet());
+        driver.hasLineCount(TOTAL_ROWS);
     }
 
     public void stop() {
@@ -35,6 +41,24 @@ public class ApplicationRunner {
     public void openAnEmptySheet() {
     }
 
-    public void showsCellContent(String reference, String value) {
+    public void showsInCell(String reference, String content) {
+        driver.showsCellWithText(rowIndex(reference), columnName(reference), content);
+    }
+
+    private int rowIndex(String reference) {
+        final String rowReference = reference.substring(1);
+        return Integer.valueOf(rowReference) - 1;
+    }
+
+    private String columnName(String reference) {
+        return valueOf(reference.charAt(0));
+    }
+
+    private String[] lettersOfTheAlphabet() {
+        List<String> alphabet = new ArrayList<String>();
+        for (char letter = 'A'; letter < 'A' + TOTAL_COLUMNS; letter++) {
+            alphabet.add(valueOf(letter));
+        }
+        return alphabet.toArray(new String[TOTAL_COLUMNS]);
     }
 }

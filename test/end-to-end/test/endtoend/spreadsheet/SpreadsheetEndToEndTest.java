@@ -6,10 +6,11 @@ import org.junit.Test;
 
 public class SpreadsheetEndToEndTest {
 
+    private static final String NOTHING = "";
     private final ApplicationRunner application = new ApplicationRunner();
 
     @Before
-    public void startApplication() throws Exception {
+    public void startApplication() {
         application.start();
     }
 
@@ -21,8 +22,8 @@ public class SpreadsheetEndToEndTest {
     @Test public void
     entersNothingAndSeesAnEmptySpreadsheet() {
         application.openAnEmptySheet();
-        application.showsCellContent("A1", "");
-        application.showsCellContent("J42", "");
-        application.showsCellContent("Z99", "");
+        application.showsInCell("A1", NOTHING);
+        application.showsInCell("C4", NOTHING);
+        application.showsInCell("J9", NOTHING);
     }
 }
