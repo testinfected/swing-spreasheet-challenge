@@ -1,10 +1,10 @@
 package spreadsheet;
 
-import spreadsheet.ui.MainWindow;
-
-import javax.swing.*;
-
 import static java.lang.Integer.parseInt;
+
+import javax.swing.SwingUtilities;
+
+import spreadsheet.ui.MainWindow;
 
 public class Application {
 
@@ -25,6 +25,7 @@ public class Application {
 
     public void start() throws Exception {
         startUserInterface();
+        openAnEmptySheet();
     }
 
     private void startUserInterface() throws Exception {

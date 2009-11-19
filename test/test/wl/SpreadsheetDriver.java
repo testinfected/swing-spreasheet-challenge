@@ -1,28 +1,30 @@
 package test.wl;
 
+import static com.objogate.wl.swing.matcher.IterableComponentsMatcher.matching;
+import static com.objogate.wl.swing.matcher.JLabelTextMatcher.withLabelText;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.equalToIgnoringCase;
+
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.Collection;
+
+import javax.swing.JComponent;
+import javax.swing.JTable;
+import javax.swing.table.JTableHeader;
+
+import org.hamcrest.Matcher;
+
+import spreadsheet.ui.MainWindow;
+
 import com.objogate.wl.Query;
 import com.objogate.wl.gesture.Gestures;
-import com.objogate.wl.gesture.TypeTextGesture;
 import com.objogate.wl.swing.AWTEventQueueProber;
 import com.objogate.wl.swing.driver.JFrameDriver;
 import com.objogate.wl.swing.driver.JTableDriver;
 import com.objogate.wl.swing.driver.JTableHeaderDriver;
 import com.objogate.wl.swing.gesture.GesturePerformer;
 import com.objogate.wl.swing.matcher.JLabelTextMatcher;
-import org.hamcrest.*;
-import spreadsheet.ui.MainWindow;
-
-import javax.swing.*;
-import javax.swing.table.JTableHeader;
-
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.Collection;
-
-import static com.objogate.wl.swing.matcher.IterableComponentsMatcher.matching;
-import static com.objogate.wl.swing.matcher.JLabelTextMatcher.withLabelText;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.containsString;
 
 public class SpreadsheetDriver extends JFrameDriver {
     public SpreadsheetDriver(int timeoutInMillis) {
@@ -45,7 +47,7 @@ public class SpreadsheetDriver extends JFrameDriver {
 
     public void showsCellWithText(int rowIndex, String columnName, String cellText) {
         JTableDriver table = new JTableDriver(this);
-        table.cellRenderedWithText(rowIndex, columnName, containsString(cellText));
+        table.cellRenderedWithText(rowIndex, columnName, equalToIgnoringCase(cellText));
     }
 
     private Matcher<? extends JComponent>[] labelsFor(String... titles) {

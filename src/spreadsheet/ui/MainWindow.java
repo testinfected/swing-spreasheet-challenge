@@ -64,6 +64,10 @@ public class MainWindow extends JFrame {
 	public void setActiveSheet(Sheet sheet) {
 		this.sheet = sheet;
 	}
+
+	public Sheet getActiveSheet() {
+		return this.sheet;
+	}
     
     
 

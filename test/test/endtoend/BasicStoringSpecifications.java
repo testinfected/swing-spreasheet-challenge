@@ -29,11 +29,18 @@ public class BasicStoringSpecifications {
         application.showsInCell("J9", NOTHING);
     }
     
-    @Test public void entersTextInACellAndReadsTheContentOfTheCell()  {
-        application.openAnEmptySheet();
+    @Test public void 
+    entersTextInACellAndReadsTheContentOfTheCell()  {
         application.enterInCell("A1", "Bob");
         application.showsInCell("A1", "Bob");
+    }
+    /*
+    @Test public void 
+    entersTextInACellAndOtherCellsAreUnchanged()  {
         application.enterInCell("A1", "Vince");
         application.showsInCell("A1", "Vince");
+        application.showsInCell("C4", NOTHING);
     }
+    */
+    
 }
