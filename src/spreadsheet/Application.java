@@ -34,6 +34,13 @@ public class Application {
             }
         });
     }
+    
+    public MainWindow getMainWindow() {
+    	return ui;
+    }
 
+	public void openAnEmptySheet() {
+		ui.setActiveSheet(new SheetImpl());
+	}
 
 }
