@@ -8,7 +8,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
+import spreadsheet.Grid;
 import spreadsheet.Sheet;
+
+import static java.lang.String.valueOf;
 
 public class MainWindow extends JFrame {
     public static final String MAIN_WINDOW_NAME = "Spreadsheet 1.0 beta";
@@ -16,8 +19,6 @@ public class MainWindow extends JFrame {
 
     private final int rows;
     private final int columns;
-    private JTable table;
-    private Sheet sheet;
 
     public MainWindow(int rows, int columns) {
         super(APPLICATION_TITLE);
@@ -39,6 +40,8 @@ public class MainWindow extends JFrame {
     private JTable createDefaultSheet() {
     	return new JTable(new AbstractTableModel() {
 
+            private Grid grid = new Sheet();
+
 			public int getColumnCount() {
 				return rows;
 			}
@@ -48,7 +51,7 @@ public class MainWindow extends JFrame {
 			}
 
 			public Object getValueAt(int row, int column) {
-				return (sheet!=null) ? sheet.getValue() : "";
+				return grid.getValue();
 			}
 			
     		public boolean isCellEditable(int row, int column) {
@@ -56,19 +59,8 @@ public class MainWindow extends JFrame {
     		}
     		
     		public void setValueAt(Object value, int row, int column) {
-				if (sheet != null) sheet.putValue((String) value);
+				grid.putValue(valueOf(value));
 			}
     	});
     }
-
-	public void setActiveSheet(Sheet sheet) {
-		this.sheet = sheet;
-	}
-
-	public Sheet getActiveSheet() {
-		return this.sheet;
-	}
-    
-    
-
 }

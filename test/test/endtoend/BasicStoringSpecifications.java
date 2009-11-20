@@ -4,9 +4,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import test.wl.ApplicationRunner;
 
-
+// todo: je ne comprends pas la signification du nom
 public class BasicStoringSpecifications {
 
     private static final String NOTHING = "";
@@ -24,16 +23,17 @@ public class BasicStoringSpecifications {
 
     @Test public void
     entersNothingAndSeesAnEmptySpreadsheet() {
-        application.showsInCell("A1", NOTHING);
-        application.showsInCell("C4", NOTHING);
-        application.showsInCell("J9", NOTHING);
+        application.displaysInCell("A1", NOTHING);
+        application.displaysInCell("C4", NOTHING);
+        application.displaysInCell("J9", NOTHING);
     }
     
     @Test public void 
     entersTextInACellAndReadsTheContentOfTheCell()  {
         application.enterInCell("A1", "Bob");
-        application.showsInCell("A1", "Bob");
+        application.displaysInCell("A1", "Bob");
     }
+
     /*
     @Test public void 
     entersTextInACellAndOtherCellsAreUnchanged()  {

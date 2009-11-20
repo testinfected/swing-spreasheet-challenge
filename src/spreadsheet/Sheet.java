@@ -1,8 +1,15 @@
 package spreadsheet;
 
-public interface Sheet {
+public class Sheet implements Grid {
 
-	public void putValue(String content);
+	private String value;
+	
+	public String getValue() {
+		return value;
+	}
 
-	public String getValue();
+	public void putValue(String content) {
+		value = content;
+	}
+
 }

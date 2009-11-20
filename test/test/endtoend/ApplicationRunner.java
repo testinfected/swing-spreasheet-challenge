@@ -1,4 +1,4 @@
-package test.wl;
+package test.endtoend;
 
 import static java.lang.String.valueOf;
 
@@ -7,6 +7,7 @@ import java.util.List;
 
 import spreadsheet.Application;
 import spreadsheet.ui.MainWindow;
+import test.drivers.SpreadsheetDriver;
 
 public class ApplicationRunner {
 
@@ -15,8 +16,6 @@ public class ApplicationRunner {
 
     private SpreadsheetDriver driver;
     
-    private Application application;
-    
     public static void main(String[] arg) {
     	ApplicationRunner runner = new ApplicationRunner();
     	runner.startApplication();
@@ -24,8 +23,7 @@ public class ApplicationRunner {
     
     protected void startApplication() {
         try {
-        	application = new Application(TOTAL_ROWS, TOTAL_COLUMNS);
-			application.start();
+        	Application.main(valueOf(TOTAL_ROWS), valueOf(TOTAL_COLUMNS));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -47,11 +45,7 @@ public class ApplicationRunner {
         driver = new SpreadsheetDriver(1000);
         driver.hasTitle(MainWindow.APPLICATION_TITLE);
         driver.hasColumnsWithTitles(lettersOfTheAlphabet());
-        driver.hasLineCount(TOTAL_ROWS);
-    }
-    
-    public MainWindow getMainWindow() {
-    	return application.getMainWindow();
+        driver.hasRowCount(TOTAL_ROWS);
     }
     
     private int rowIndex(String reference) {
@@ -62,8 +56,8 @@ public class ApplicationRunner {
     private String columnName(String reference) {
         return valueOf(reference.charAt(0));
     }
-    
-    protected int columnIndex(String reference) {
+
+    private int columnIndex(String reference) {
 		return Character.getNumericValue(reference.charAt(0)) - 10;
 	}
 
@@ -79,19 +73,13 @@ public class ApplicationRunner {
         if (driver != null) driver.dispose();
     }
     
-    public void showsInCell(String reference, String content) {
+    public void displaysInCell(String reference, String content) {
         driver.showsCellWithText(rowIndex(reference), columnName(reference), content);
-    }
-
-    public void openAnEmptySheet() {
-    	application.openAnEmptySheet();
     }
 
     public void enterInCell(String reference, String content) {
     	driver.enterTextInCell(rowIndex(reference), columnIndex(reference), content);
 	}
 
-	
-    
-	
+
 }
