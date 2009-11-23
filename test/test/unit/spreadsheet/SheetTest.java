@@ -1,4 +1,4 @@
-package test.unit;
+package test.unit.spreadsheet;
 
 import org.junit.Test;
 import spreadsheet.Sheet;
@@ -12,7 +12,7 @@ public class SheetTest {
 
     @Test public void
     atTheMomentOneCellIsStoredAndCanBeRetrieved() {
-    	sheet.putValue("hello world");
-    	assertThat(sheet.getValue(), equalTo("hello world"));
+    	sheet.put("hello world");
+    	assertThat(sheet.get(), equalTo("hello world"));
     }
 }

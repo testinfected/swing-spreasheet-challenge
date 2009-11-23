@@ -6,12 +6,8 @@ import java.awt.Container;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.AbstractTableModel;
 
-import spreadsheet.Grid;
 import spreadsheet.Sheet;
-
-import static java.lang.String.valueOf;
 
 public class MainWindow extends JFrame {
     public static final String MAIN_WINDOW_NAME = "Spreadsheet 1.0 beta";
@@ -38,29 +34,6 @@ public class MainWindow extends JFrame {
     }
     
     private JTable createDefaultSheet() {
-    	return new JTable(new AbstractTableModel() {
-
-            private Grid grid = new Sheet();
-
-			public int getColumnCount() {
-				return rows;
-			}
-
-			public int getRowCount() {
-				return columns;
-			}
-
-			public Object getValueAt(int row, int column) {
-				return grid.getValue();
-			}
-			
-    		public boolean isCellEditable(int row, int column) {
-    			return true;
-    		}
-    		
-    		public void setValueAt(Object value, int row, int column) {
-				grid.putValue(valueOf(value));
-			}
-    	});
+    	return new JTable(new SpreadsheetTableModel(new Sheet(), rows, columns));
     }
 }

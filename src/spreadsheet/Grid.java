@@ -2,7 +2,7 @@ package spreadsheet;
 
 public interface Grid {
 
-	void putValue(String content);
+	void put(String content);
 
-	String getValue();
+	String get();
 }

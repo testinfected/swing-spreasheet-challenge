@@ -4,11 +4,11 @@ public class Sheet implements Grid {
 
 	private String value;
 	
-	public String getValue() {
+	public String get() {
 		return value;
 	}
 
-	public void putValue(String content) {
+	public void put(String content) {
 		value = content;
 	}
 
