@@ -81,5 +81,8 @@ public class ApplicationRunner {
     	driver.enterTextInCell(rowIndex(reference), columnIndex(reference), content);
 	}
 
+    public void displaysOneTab() {
+    	driver.hasOneTab();
+    }
 
 }

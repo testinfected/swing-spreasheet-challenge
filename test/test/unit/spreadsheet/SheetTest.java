@@ -11,8 +11,16 @@ public class SheetTest {
 	private Sheet sheet = new Sheet();
 
     @Test public void
-    atTheMomentOneCellIsStoredAndCanBeRetrieved() {
-    	sheet.put("hello world");
-    	assertThat(sheet.get(), equalTo("hello world"));
+    oneCellIsStoredAndCanBeRetrieved() {
+    	sheet.put("A1", "hello world");
+    	assertThat(sheet.get("A1"), equalTo("hello world"));
+    }
+    
+    @Test public void
+    twoCellsCanBeStoredAndCanBeRetrieved() {
+    	sheet.put("A1", "hello world");
+    	sheet.put("B2", "hola mundo");
+    	assertThat(sheet.get("A1"), equalTo("hello world"));
+    	assertThat(sheet.get("B2"), equalTo("hola mundo"));
     }
 }

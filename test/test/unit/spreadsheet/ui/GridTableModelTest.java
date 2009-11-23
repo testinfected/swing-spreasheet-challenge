@@ -27,16 +27,7 @@ public class GridTableModelTest {
         assertThat(model.getRowCount(), equalTo(TOTAL_ROWS));
         assertThat(model.getColumnCount(), equalTo(TOTAL_COLS));
     }
-
-    @Test public void
-    readsTableValueFromGrid() {
-        context.checking(new Expectations() {{
-          one(grid).get(); will(returnValue("value in cell"));
-        }});
-
-        assertThat(valueOfCell("A1"), is("value in cell"));
-    }
-
+    
     @Test public void
     allCellsAreEditable() {
         for (int row = 0; row < TOTAL_ROWS; row++ ) {
@@ -47,24 +38,27 @@ public class GridTableModelTest {
     }
 
     @Test public void
-    storesTextRepresentationOfCellContentInGrid() {
+    knowsHowToBuildCellReferences() {
+    	assertThat(model.referenceFor(0, 0), equalTo("A1"));
+    	assertThat(model.referenceFor(3, 5), equalTo("F4"));
+    }
+    
+    @Test public void
+    readsTableValueFromGridUsingReferences() {
+    	context.checking(new Expectations() {{
+    		one(grid).get(with("A1"));
+    	}});
+    	
+    	model.getValueAt(0, 0);
+    }
+
+    @Test public void
+    storesTextRepresentationOfCellContentInGridUsingReference() {
         context.checking(new Expectations() {{
-            one(grid).put(with("content"));
+            one(grid).put(with("A1"), with("content"));
         }});
 
-        model.setValueAt(anObjectDisplayingAs("content"), 0, 0);
+        model.setValueAt("content", 0, 0);
     }
 
-    private String valueOfCell(String reference) {
-        return String.valueOf(model.getValueAt(0, 0));
-    }
-
-    private Object anObjectDisplayingAs(final String text) {
-        return new Object() {
-            @Override
-            public String toString() {
-                return text;
-            }
-        };
-    }
 }

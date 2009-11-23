@@ -3,6 +3,7 @@ package test.drivers;
 import com.objogate.wl.gesture.Gestures;
 import com.objogate.wl.swing.AWTEventQueueProber;
 import com.objogate.wl.swing.driver.JFrameDriver;
+import com.objogate.wl.swing.driver.JTabbedPaneDriver;
 import com.objogate.wl.swing.driver.JTableDriver;
 import com.objogate.wl.swing.driver.JTableHeaderDriver;
 import com.objogate.wl.swing.gesture.GesturePerformer;
@@ -62,5 +63,11 @@ public class SpreadsheetDriver extends JFrameDriver {
 
     private Matcher<String> equalToRespectingCase(String cellText) {
         return (Matcher<String>) equalTo(cellText);
+    }
+    
+    public void hasOneTab() {
+    	JTabbedPaneDriver tabs = new JTabbedPaneDriver(this, JTabbedPane.class);
+    	tabs.is(notNullValue());
+    	tabs.hasTabCount(1);
     }
 }
