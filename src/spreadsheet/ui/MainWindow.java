@@ -34,6 +34,6 @@ public class MainWindow extends JFrame {
     }
     
     private JTable createDefaultSheet() {
-    	return new JTable(new SpreadsheetTableModel(new Sheet(), rows, columns));
+    	return new JTable(new GridTableModel(new Sheet(), rows, columns));
     }
 }

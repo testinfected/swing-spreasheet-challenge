@@ -4,12 +4,12 @@ import spreadsheet.Grid;
 
 import javax.swing.table.AbstractTableModel;
 
-public class SpreadsheetTableModel extends AbstractTableModel {
+public class GridTableModel extends AbstractTableModel {
     private final Grid grid;
     private final int rowCount;
     private final int colCount;
 
-    public SpreadsheetTableModel(Grid grid, int rows, int cols) {
+    public GridTableModel(Grid grid, int rows, int cols) {
         this.grid = grid;
         this.rowCount = rows;
         this.colCount = cols;
@@ -24,16 +24,16 @@ public class SpreadsheetTableModel extends AbstractTableModel {
     }
 
     @Override
-    public boolean isCellEditable(int i, int i1) {
+    public boolean isCellEditable(int row, int col) {
         return true;
     }
 
-    public Object getValueAt(int i, int i1) {
+    public Object getValueAt(int row, int col) {
         return grid.get();
     }
 
     @Override
-    public void setValueAt(Object o, int i, int i1) {
-        grid.put(String.valueOf(o));
+    public void setValueAt(Object value, int row, int col) {
+        grid.put(String.valueOf(value));
     }
 }

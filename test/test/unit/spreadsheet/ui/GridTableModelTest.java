@@ -6,21 +6,21 @@ import org.jmock.integration.junit4.JMock;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import spreadsheet.Grid;
-import spreadsheet.ui.SpreadsheetTableModel;
+import spreadsheet.ui.GridTableModel;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 @RunWith(JMock.class)
-public class SpreadsheetTableModelTest {
+public class GridTableModelTest {
 
     private static final int TOTAL_ROWS = 10;
     private static final int TOTAL_COLS = 26;
 
     private final Mockery context = new Mockery();
     private Grid grid = context.mock(Grid.class);
-    private SpreadsheetTableModel model = new SpreadsheetTableModel(grid, TOTAL_ROWS, TOTAL_COLS);
+    private GridTableModel model = new GridTableModel(grid, TOTAL_ROWS, TOTAL_COLS);
 
     @Test public void
     hasFixedDimensions() {
