@@ -38,27 +38,33 @@ public class GridTableModelTest {
     }
 
     @Test public void
-    knowsHowToBuildCellReferences() {
-    	assertThat(model.referenceFor(0, 0), equalTo("A1"));
-    	assertThat(model.referenceFor(3, 5), equalTo("F4"));
-    }
-    
-    @Test public void
-    readsTableValueFromGridUsingReferences() {
+    readsTableValueFromGridUsingLocationAsAKey() {
     	context.checking(new Expectations() {{
-    		one(grid).get(with("A1"));
+    		one(grid).get(with("(15,42)")); will(returnValue("cell content"));
     	}});
     	
-    	model.getValueAt(0, 0);
+    	assertThat(cellValue(15, 42), equalTo("cell content"));
     }
 
     @Test public void
-    storesTextRepresentationOfCellContentInGridUsingReference() {
+    storesTextRepresentationOfCellContentInGridUsingLocationAsAKey() {
         context.checking(new Expectations() {{
-            one(grid).put(with("A1"), with("content"));
+            one(grid).put(with("(0,0)"), with("content"));
         }});
 
-        model.setValueAt("content", 0, 0);
+        model.setValueAt(anObjectDisplayingAs("content"), 0, 0);
     }
 
+    private String cellValue(final int row, final int col) {
+        return String.valueOf(model.getValueAt(row, col));
+    }
+
+    private Object anObjectDisplayingAs(final String text) {
+        return new Object() {
+            @Override
+            public String toString() {
+                return text;
+            }
+        };
+    }
 }

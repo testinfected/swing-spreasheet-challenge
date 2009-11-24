@@ -58,7 +58,7 @@ public class SpreadsheetDriver extends JFrameDriver {
     public void enterTextInCell(int rowIndex, int columnIndex, String content) {
         JTableDriver table = new JTableDriver(this);
         table.editCell(rowIndex, columnIndex);
-        table.performGesture(Gestures.type(content), Gestures.typeKey(KeyEvent.VK_ENTER));
+        table.performGesture(Gestures.selectAll(), Gestures.type(content), Gestures.typeKey(KeyEvent.VK_ENTER));
     }
 
     private Matcher<String> equalToRespectingCase(String cellText) {

@@ -4,7 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 
 
-public class WorkbookUse {
+public class WorkBookUsage {
 
 	private final ApplicationRunner application = new ApplicationRunner();
 

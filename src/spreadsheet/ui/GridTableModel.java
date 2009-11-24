@@ -22,10 +22,6 @@ public class GridTableModel extends AbstractTableModel {
     public int getColumnCount() {
         return colCount;
     }
-    
-    public String referenceFor(int row, int column) {
-		return "" + (char)('A' + column) + (row + 1);
-	}
 
     @Override
     public boolean isCellEditable(int row, int col) {
@@ -40,5 +36,9 @@ public class GridTableModel extends AbstractTableModel {
     public void setValueAt(Object value, int row, int col) {
         grid.put(referenceFor(row, col), String.valueOf(value));
     }
-	
+
+    private String referenceFor(int row, int column) {
+        return String.format("(%d,%d)", row, column);
+    }
+
 }

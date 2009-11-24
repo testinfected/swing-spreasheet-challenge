@@ -4,7 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class SheetUse {
+public class SheetUsage {
 
     private static final String NOTHING = "";
     private final ApplicationRunner application = new ApplicationRunner();
@@ -28,7 +28,11 @@ public class SheetUse {
     
     @Test public void 
     entersTextInACellAndReadsTheContentOfTheCell()  {
-        application.enterInCell("A1", "Bob");
-        application.displaysInCell("A1", "Bob");
+        application.enterInCell("A1", "some value");
+        application.enterInCell("B1", "another value");
+        application.displaysInCell("A1", "some value");
+        application.displaysInCell("B1", "another value");
+        application.enterInCell("A1", "a new value");
+        application.displaysInCell("A1", "a new value");
     }
 }
