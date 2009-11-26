@@ -20,7 +20,7 @@ public class ApplicationRunner {
     	ApplicationRunner runner = new ApplicationRunner();
     	runner.startApplication();
     }
-    
+
     protected void startApplication() {
         try {
         	Application.main(valueOf(TOTAL_ROWS), valueOf(TOTAL_COLUMNS));
@@ -48,7 +48,7 @@ public class ApplicationRunner {
         driver.hasColumnsWithTitles(lettersOfTheAlphabet());
         driver.hasRowCount(TOTAL_ROWS);
     }
-    
+
     private int rowIndex(String reference) {
         final String rowReference = reference.substring(1);
         return Integer.valueOf(rowReference) - 1;
@@ -73,7 +73,7 @@ public class ApplicationRunner {
     public void stop() {
         if (driver != null) driver.dispose();
     }
-    
+
     public void displaysInCell(String reference, String content) {
         driver.showsCellWithText(rowIndex(reference), columnName(reference), content);
     }

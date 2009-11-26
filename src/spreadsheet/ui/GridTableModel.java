@@ -38,7 +38,7 @@ public class GridTableModel extends AbstractTableModel {
     }
 
     private String referenceFor(int row, int column) {
-        return String.format("(%d,%d)", row, column);
+        return Coordinates.at(row, column).reference();
     }
 
 }

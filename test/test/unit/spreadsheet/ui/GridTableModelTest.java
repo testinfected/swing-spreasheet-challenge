@@ -9,8 +9,8 @@ import spreadsheet.Grid;
 import spreadsheet.ui.GridTableModel;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(JMock.class)
 public class GridTableModelTest {
@@ -32,30 +32,30 @@ public class GridTableModelTest {
     allCellsAreEditable() {
         for (int row = 0; row < TOTAL_ROWS; row++ ) {
             for (int col = 0; col < TOTAL_COLS; col++) {
-                assertThat(model.isCellEditable(row, col), is(true));
+                assertTrue(model.isCellEditable(row, col));
             }
         }
     }
 
     @Test public void
-    readsTableValueFromGridUsingLocationAsAKey() {
+    readsTableValueFromGridUsingCellReference() {
     	context.checking(new Expectations() {{
-    		one(grid).get(with("(15,42)")); will(returnValue("cell content"));
+    		one(grid).get(with("M16")); will(returnValue("cell content"));
     	}});
     	
-    	assertThat(cellValue(15, 42), equalTo("cell content"));
+    	assertThat(cellValueAt(15, 12), equalTo("cell content"));
     }
 
     @Test public void
-    storesTextRepresentationOfCellContentInGridUsingLocationAsAKey() {
+    storesTextRepresentationOfCellContentInGridUsingCellReference() {
         context.checking(new Expectations() {{
-            one(grid).put(with("(0,0)"), with("content"));
+            one(grid).put(with("A1"), with("content"));
         }});
 
         model.setValueAt(anObjectDisplayingAs("content"), 0, 0);
     }
 
-    private String cellValue(final int row, final int col) {
+    private String cellValueAt(final int row, final int col) {
         return String.valueOf(model.getValueAt(row, col));
     }
 
