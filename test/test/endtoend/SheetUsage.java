@@ -27,7 +27,7 @@ public class SheetUsage {
     }
     
     @Test public void 
-    entersTextInACellAndReadsTheContentOfTheCell()  {
+    entersTextInCellsAndSeesTheContentOfTheCells()  {
         application.enterInCell("A1", "some value");
         application.enterInCell("B1", "another value");
         application.displaysInCell("A1", "some value");
