@@ -27,7 +27,7 @@ public class SheetUsage {
     }
     
     @Test public void 
-    entersTextInCellsAndSeesTheContentOfTheCells()  {
+    entersTextInCellsAndSeesTheCellsContent()  {
         application.enterInCell("A1", "some value");
         application.enterInCell("B1", "another value");
         application.displaysInCell("A1", "some value");
@@ -36,5 +36,13 @@ public class SheetUsage {
         application.displaysInCell("A1", "a new value");
     }
 
-    
+    @Test public void
+    entersTextInACellAndEditsTheContentOfTheCell()  {
+        application.enterInCell("A1", "some value");
+        application.enterInCell("B1", "another value");
+        application.activateCell("A1");
+        application.showsInInputLine("some value");
+        application.enterInInputLine("a new value");
+        application.displaysInCell("A1", "a new value");
+    }
 }

@@ -49,6 +49,10 @@ public class ApplicationRunner {
         driver.hasRowCount(TOTAL_ROWS);
     }
 
+    public void stop() {
+        if (driver != null) driver.dispose();
+    }
+
     private int rowIndex(String reference) {
         final String rowReference = reference.substring(1);
         return Integer.valueOf(rowReference) - 1;
@@ -70,10 +74,6 @@ public class ApplicationRunner {
         return alphabet.toArray(new String[TOTAL_COLUMNS]);
     }
 
-    public void stop() {
-        if (driver != null) driver.dispose();
-    }
-
     public void displaysInCell(String reference, String content) {
         driver.showsCellWithText(rowIndex(reference), columnName(reference), content);
     }
@@ -81,4 +81,16 @@ public class ApplicationRunner {
     public void enterInCell(String reference, String content) {
     	driver.enterTextInCell(rowIndex(reference), columnIndex(reference), content);
 	}
+
+    public void activateCell(String reference) {
+        driver.activateCell(rowIndex(reference), columnIndex(reference));
+    }
+
+    public void showsInInputLine(String literal) {
+        driver.showsInInputLine(literal);
+    }
+
+    public void enterInInputLine(String text) {
+        driver.enterTextInInputLine(text);
+    }
 }

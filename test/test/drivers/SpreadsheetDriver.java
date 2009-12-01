@@ -2,10 +2,7 @@ package test.drivers;
 
 import com.objogate.wl.gesture.Gestures;
 import com.objogate.wl.swing.AWTEventQueueProber;
-import com.objogate.wl.swing.driver.JFrameDriver;
-import com.objogate.wl.swing.driver.JTabbedPaneDriver;
-import com.objogate.wl.swing.driver.JTableDriver;
-import com.objogate.wl.swing.driver.JTableHeaderDriver;
+import com.objogate.wl.swing.driver.*;
 import com.objogate.wl.swing.gesture.GesturePerformer;
 import com.objogate.wl.swing.matcher.JLabelTextMatcher;
 import org.hamcrest.Matcher;
@@ -43,7 +40,7 @@ public class SpreadsheetDriver extends JFrameDriver {
     }
 
     public void showsCellWithText(int rowIndex, String columnName, String cellText) {
-        JTableDriver table = new JTableDriver(this);
+        JTableDriver table = table();
         table.cellRenderedWithText(rowIndex, columnName, equalToRespectingCase(cellText));
     }
 
@@ -56,9 +53,8 @@ public class SpreadsheetDriver extends JFrameDriver {
     }
 
     public void enterTextInCell(int rowIndex, int columnIndex, String content) {
-        JTableDriver table = new JTableDriver(this);
-        table.editCell(rowIndex, columnIndex);
-        table.performGesture(Gestures.selectAll(), Gestures.type(content), Gestures.typeKey(KeyEvent.VK_ENTER));
+        table().editCell(rowIndex, columnIndex);
+        table().performGesture(Gestures.selectAll(), Gestures.type(content), Gestures.typeKey(KeyEvent.VK_ENTER));
     }
 
     private Matcher<String> equalToRespectingCase(String cellText) {
@@ -69,5 +65,28 @@ public class SpreadsheetDriver extends JFrameDriver {
     	JTabbedPaneDriver tabs = new JTabbedPaneDriver(this, JTabbedPane.class);
     	tabs.is(notNullValue());
     	tabs.hasTabCount(1);
+    }
+
+    public void activateCell(int rowIndex, int columnIndex) {
+        table().selectCell(rowIndex, columnIndex);
+    }
+
+    public void showsInInputLine(String literal) {
+        textField(MainWindow.INPUT_LINE_NAME).hasText(literal);
+    }
+
+    public void enterTextInInputLine(String text) {
+        textField(MainWindow.INPUT_LINE_NAME).replaceAllText(text);
+    }
+
+    private JTableDriver table() {
+        return new JTableDriver(this);
+    }
+
+    private JTextFieldDriver textField(String fieldName) {
+      JTextFieldDriver textField =
+        new JTextFieldDriver(this, JTextField.class, named(fieldName));
+      textField.focusWithMouse();
+      return textField;
     }
 }
