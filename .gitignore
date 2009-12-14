@@ -5,3 +5,6 @@ out
 .project
 .classpath
 bin
+build.xml
+manifest.mf
+nbproject
