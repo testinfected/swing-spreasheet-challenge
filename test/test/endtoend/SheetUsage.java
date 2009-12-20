@@ -25,24 +25,24 @@ public class SheetUsage {
         application.displaysInCell("C4", NOTHING);
         application.displaysInCell("J9", NOTHING);
     }
-    
+   
     @Test public void 
     entersTextInCellsAndSeesTheCellsContent()  {
-        application.enterInCell("A1", "some value");
-        application.enterInCell("B1", "another value");
-        application.displaysInCell("A1", "some value");
-        application.displaysInCell("B1", "another value");
-        application.enterInCell("A1", "a new value");
-        application.displaysInCell("A1", "a new value");
+        application.enterInCell("A1", "one text");
+        application.enterInCell("B1", "other text");
+        application.displaysInCell("A1", "one text");
+        application.displaysInCell("B1", "other text");
+        application.enterInCell("A1", "one sentence");
+        application.displaysInCell("A1", "one sentence");
     }
 
     @Test public void
     entersTextInACellAndEditsTheContentOfTheCell()  {
-        application.enterInCell("A1", "some value");
-        application.enterInCell("B1", "another value");
+        application.enterInCell("A1", "one text");
+        application.enterInCell("B1", "other text");
         application.activateCell("A1");
-        application.showsInInputLine("some value");
-        application.enterInInputLine("a new value");
-        application.displaysInCell("A1", "a new value");
+        application.showsInInputLine("one text");
+        application.enterInInputLine("one sentence");
+        application.displaysInCell("A1", "one sentence");
     }
 }

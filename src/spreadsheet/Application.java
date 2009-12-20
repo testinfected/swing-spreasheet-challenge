@@ -14,26 +14,32 @@ public class Application {
     private final int rows;
     private final int columns;
     private MainWindow ui;
+    private GridPresenter presenter;
 
     public static void main(String... args) throws Exception {
-        Application main = new Application(parseInt(args[ROWS]), parseInt(args[COLUMNS]));
+        Application main = new Application(parseInt(args[ROWS]), parseInt(args[COLUMNS]));     
         main.start();
     }
 
     public Application(int rows, int columns) {
         this.rows = rows;
         this.columns = columns;
+        presenter = new GridPresenter();
+        ui = new MainWindow(rows, columns);
+        presenter.setView(ui);
+        ui.registerGridViewListener(presenter);
     }
 
     public void start() throws Exception {
         startUserInterface();
     }
-
+ 
     private void startUserInterface() throws Exception {
         SwingUtilities.invokeAndWait(new Runnable() {
-            public void run() {
-                ui = new MainWindow(rows, columns);
+            public void run() {                
+                ui.showMainWindow();
             }
         });
     }
+
 }

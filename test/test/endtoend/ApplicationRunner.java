@@ -44,7 +44,6 @@ public class ApplicationRunner {
 
         driver = new SpreadsheetDriver(1000);
         driver.hasTitle(MainWindow.APPLICATION_TITLE);
-//        driver.hasOneTab();
         driver.hasColumnsWithTitles(lettersOfTheAlphabet());
         driver.hasRowCount(TOTAL_ROWS);
     }

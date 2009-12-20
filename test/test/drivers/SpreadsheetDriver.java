@@ -4,6 +4,7 @@ import com.objogate.wl.gesture.Gestures;
 import com.objogate.wl.swing.AWTEventQueueProber;
 import com.objogate.wl.swing.driver.*;
 import com.objogate.wl.swing.gesture.GesturePerformer;
+import com.objogate.wl.swing.gesture.SwingGestures;
 import com.objogate.wl.swing.matcher.JLabelTextMatcher;
 import org.hamcrest.Matcher;
 import spreadsheet.ui.MainWindow;
@@ -54,7 +55,10 @@ public class SpreadsheetDriver extends JFrameDriver {
 
     public void enterTextInCell(int rowIndex, int columnIndex, String content) {
         table().editCell(rowIndex, columnIndex);
-        table().performGesture(Gestures.selectAll(), Gestures.type(content), Gestures.typeKey(KeyEvent.VK_ENTER));
+        table().performGesture(
+                Gestures.doubleClickMouse(),
+                Gestures.type(content),
+                Gestures.typeKey(KeyEvent.VK_ENTER));
     }
 
     private Matcher<String> equalToRespectingCase(String cellText) {
@@ -76,17 +80,17 @@ public class SpreadsheetDriver extends JFrameDriver {
     }
 
     public void enterTextInInputLine(String text) {
-        textField(MainWindow.INPUT_LINE_NAME).replaceAllText(text);
+        textField(MainWindow.INPUT_LINE_NAME).focusWithMouse();
+        textField(MainWindow.INPUT_LINE_NAME).typeText(text);
     }
 
     private JTableDriver table() {
         return new JTableDriver(this);
     }
 
-    private JTextFieldDriver textField(String fieldName) {
+    public JTextFieldDriver textField(String fieldName) {
       JTextFieldDriver textField =
         new JTextFieldDriver(this, JTextField.class, named(fieldName));
-      textField.focusWithMouse();
       return textField;
     }
 }
