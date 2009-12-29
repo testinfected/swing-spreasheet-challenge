@@ -1,39 +1,47 @@
 package test.unit.spreadsheet.ui;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+
+import spreadsheet.EditionListener;
 import spreadsheet.GridListener;
-import spreadsheet.GridView;
 import spreadsheet.ui.MainWindow;
 import test.drivers.SpreadsheetDriver;
-import static org.junit.Assert.*;
 
-public class MainWindowTest implements GridListener {
+public class MainWindowTest implements GridListener, EditionListener {
 
     private boolean clicked;
+    private boolean modified;
     private static MainWindow view;
     private static SpreadsheetDriver driver;
 
-    @BeforeClass
-    public static void setUp() {
-        view = new MainWindow(10, 10);
+    @After
+    public void teardown() {
+        driver.dispose();
+    }
+    
+    @Before
+    public void initIndicators() {
+    	clicked = false;
+    	modified =false;
+    	view = new MainWindow(10, 10);
         view.showMainWindow();
         driver = new SpreadsheetDriver(1000);
-    }
-
-    @AfterClass
-    public static void teardown() {
-        driver.dispose();
     }
 
     public void cellClicked(Object content) {
         clicked = true;
     }
+    public void valueChanged(String value) {
+		modified = true;
+	}
 
     @Test
-    public void cellSelectionShouldBeDelegatedToListener() {
-        clicked = false;
+    public void cellSelectionShouldBeDelegatedToRegisteredListener() {        
         view.registerGridViewListener(this);
         driver.activateCell(0, 0);
         assertTrue(clicked);
@@ -45,6 +53,26 @@ public class MainWindowTest implements GridListener {
         driver.showsInInputLine("toto");
     }
 
+    @Test
+    public void editionValidationShouldBeDelegatedToRegisteredListener() {
+    	view.registerEditionListener(this);
+    	driver.enterTextInInputLine(" ");
+    	assertTrue(modified);
+    }
     
+    @Test
+    public void newValueIsSentByTypingENTERKey() {
+    	view.registerEditionListener(this);
+    	driver.typeTextInInputLine(" ");
+    	assertFalse(modified);
+    }
+    
+    @Test
+    public void selectedCellShouldDisplayTheGivenValue() {
+    	driver.activateCell(0, 0);
+    	view.updateSelectedCell("tutu");
+    	driver.showsCellWithText(0, "A", "tutu");
+    }
 
+	
 }

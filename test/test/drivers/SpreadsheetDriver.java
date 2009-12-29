@@ -81,7 +81,17 @@ public class SpreadsheetDriver extends JFrameDriver {
 
     public void enterTextInInputLine(String text) {
         textField(MainWindow.INPUT_LINE_NAME).focusWithMouse();
-        textField(MainWindow.INPUT_LINE_NAME).typeText(text);
+        textField(MainWindow.INPUT_LINE_NAME).performGesture(
+                Gestures.doubleClickMouse(),
+                Gestures.type(text),
+                Gestures.typeKey(KeyEvent.VK_ENTER));
+    }
+    
+    public void typeTextInInputLine(String text) {
+        textField(MainWindow.INPUT_LINE_NAME).focusWithMouse();
+        textField(MainWindow.INPUT_LINE_NAME).performGesture(
+                Gestures.doubleClickMouse(),
+                Gestures.type(text));
     }
 
     private JTableDriver table() {

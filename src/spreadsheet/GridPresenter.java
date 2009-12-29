@@ -1,16 +1,34 @@
 package spreadsheet;
 
 
-public class GridPresenter implements GridListener {
 
-    private GridView view;
+public class GridPresenter implements GridListener, EditionListener {
 
-    public void cellClicked(Object content) {
-        view.updateInputLine((content==null) ? "" : content.toString());
+    private GridView gridView;
+    private EditorView editorView;
+
+    public void setGridView(GridView view) {
+        this.gridView = view;
     }
 
-    public void setView(GridView view) {
-        this.view = view;
+    public void setEditorView(EditorView editorView) {
+		this.editorView = editorView;
+	}
+
+    public GridView getGridView() {
+		return gridView;
+	}
+
+	public Object getEditorView() {
+		return editorView;
+	}
+	public void cellClicked(Object content) {
+        gridView.updateInputLine((content==null) ? "" : content.toString());
     }
 
+	public void valueChanged(String value) {
+		editorView.updateSelectedCell(value);
+	}
+
+	
 }

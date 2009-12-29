@@ -13,8 +13,8 @@ public class Application {
 
     private final int rows;
     private final int columns;
-    private MainWindow ui;
-    private GridPresenter presenter;
+    protected MainWindow ui;
+    protected GridPresenter presenter;
 
     public static void main(String... args) throws Exception {
         Application main = new Application(parseInt(args[ROWS]), parseInt(args[COLUMNS]));     
@@ -26,8 +26,10 @@ public class Application {
         this.columns = columns;
         presenter = new GridPresenter();
         ui = new MainWindow(rows, columns);
-        presenter.setView(ui);
+        presenter.setGridView(ui);
         ui.registerGridViewListener(presenter);
+        presenter.setEditorView(ui);
+        ui.registerEditionListener(presenter);
     }
 
     public void start() throws Exception {
@@ -41,5 +43,17 @@ public class Application {
             }
         });
     }
+
+	public GridView getGridView() {
+		return ui;
+	}
+
+	public EditorView getEditorView() {
+		return ui;
+	}
+
+	public GridPresenter getPresenter() {
+		return presenter;
+	}
 
 }
